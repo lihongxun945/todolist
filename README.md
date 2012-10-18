@@ -6,3 +6,7 @@ data, so it can syncrolize in any platform when you login in chrome.
   * todolist folder is the resource
   * todolist.crx is the pakaged app
   * todolist.pem is the application key
+## progress
+  it's not complete, here is TODOS:
+  * add DONES
+  * beautify style

@@ -56,28 +56,24 @@ body {
     color: #333;
     line-height: 20px;
 }
-#todos {
+.list {
     list-style: none;
-    margin-left: -4px;
 }
-#todos li{
+.list li{
     line-height: 20px;
-    padding-left: 4px;
-    border: 1px solid #f0f0f0;
 }
-#todos li:hover{
-    border:1px solid #ddd;
-    border-radius: 3px;
+.list li:hover{
+    background: #e1f0f7;
 }
-#todos .close {
+.list .close {
     display:none;
     float: right;
     margin-right: 8px;
 }
-#todos li:hover .close {
+.list li:hover .close {
     display: inline-block;
 }
-#todos .item{
+.list .item{
     display: inline-block;
     width: 270px;
     font-size: 13px;
@@ -86,7 +82,7 @@ body {
     overflow:hidden;
     text-decoration: none;
 }
-#todos .icon {
+.list .icon {
     width: 16px;
     height: 16px;
     vertical-align: middle;
@@ -111,4 +107,24 @@ body {
 }
 #tab-titles a.current{
     border-bottom: 1px solid #f0f0f0;
+}
+.empty-msg {
+    padding: 20px;
+    color: #666;
+    text-align: center;
+}
+.settings {
+    color: #444;
+    padding: 10px 0;
+}
+.settings hr{
+    margin: 8px 0;
+}
+#sum {
+    color: #666;
+    font-size: 13px;
+    padding: 4px;
+}
+#tab-bodys {
+    min-height: 100px;
 }

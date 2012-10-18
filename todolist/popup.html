@@ -1,6 +1,6 @@
 <link rel="stylesheet" type="text/css" href="css/style.css" ></link>
 <div id="todo">
-    <h3 class="title">TODOList v0.1</h3>
+    <h3 class="title">TODOList v1.0</h3>
     <div class="operation" id="op">
         <form id="add">
             <input type="text" id="current_title" value="loading..." />
@@ -14,11 +14,28 @@
         <a>SETTINGS</a>
     </div>
     <div id="tab-bodys">
-        <div id="tab-body-1">
-            <ul id="todos">
+        <div>
+            <ul id="todos" class="list">
                 loading...
             </ul>
         </div>
+        <div style="display: none;">
+            <ul id="dones" class="list">
+                loading...
+            </ul>
+        </div>
+        <div style="display: none;" class="settings">
+            <h3>about TODOLISTV1.0</h3>
+            <hr />
+            you can add a url to TODOLIST;
+            when you remove item from todolist, it will be move to dones;if you remove item from dones, it will really be removed.
+            it will syncrolize in any platform when you use a same acount login chrome.
+            <hr />
+            @time 2012/10/18 @author axun
+
+        </div>
+    </div>
+    <div id="sum">
     </div>
 </div>
 <script src="js/jquery-latest.min.js"></script>

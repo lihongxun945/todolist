@@ -5,6 +5,7 @@ data, so it can syncrolize in any platform when you login in chrome.
 ## explain
   * todolist folder is the resource
   * todolist.crx is the pakaged app
+
 ## progress
   it's not complete, here is TODOS:
   * add DONES

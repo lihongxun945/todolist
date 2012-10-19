@@ -88,6 +88,11 @@ body {
     vertical-align: middle;
     margin-right: 4px;
 }
+.hr-3d {
+    border-top: 1px solid #c6c6c6;
+    border-bottom: 1px solid #fff;
+    margin: 4px 0;
+}
 #added {
     color: #dd0000;
     font-size: 12px;

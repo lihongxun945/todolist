@@ -3,9 +3,12 @@
     "name": "Todolist",
     "version": "0.1",
     "description": "simple todolist, you can put some url here",
-    "icons":{},
+    "icons":{
+        "16": "todo_x16.png",
+        "48": "todo_x48.png"
+    },
     "browser_action" :{
-        "default_icon": "todo.png",
+        "default_icon": "todo_x22.png",
         "default_title": "Todolist",
         "default_popup": "popup.html"
     },

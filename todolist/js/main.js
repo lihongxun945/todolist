@@ -26,32 +26,39 @@ $(function(){
             });
         }
     };
-    var todo = {
-        add: function(data, callback){
-            todo.getAll(function(todos){    //此处没有用this,不然在回调函数中总是需要绑定this
-                todos.push(data);
-                chrome.storage.sync.set({"todos": todos}, function(){callback && callback(data)});
+    var data = {
+        add: function(name, item, callback){
+            //这里有一个闭包bug，在下面的回调函数中无法访问name，所以传进去了一个name。
+            data.getAll(name, function(todos, name){    //此处没有用this,不然在回调函数中总是需要绑定this
+                todos.push(item);
+                var r = {};
+                r[name] = todos;
+                chrome.storage.sync.set(r, function(){
+                    callback && callback(item);
+                    });
             });
         },
-        remove: function(url, callback){
-            todo.getAll(function(todos){
+        remove: function(name, url, callback){
+            data.getAll(name, function(todos, name){
                 var removed;
                 for(var i=0;i<todos.length;i++) {
                     if(todos[i][0] === url) removed = todos.splice(i, 1)[0];
                 }
-                chrome.storage.sync.set({"todos": todos}, function(){callback && callback(removed)});
+                var r = {};
+                r[name] = todos;
+                chrome.storage.sync.set(r, function(){callback && callback(removed)});
             });
         },
-        getAll: function(callback){
+        getAll: function(name, callback){
             var todos;
-            chrome.storage.sync.get("todos", function(d) {
-                todos = d["todos"];
+            chrome.storage.sync.get(name, function(d) {
+                todos = d[name];
                 if(!todos) todos = [];
-                callback && callback(todos);
+                callback && callback(todos, name);
             });
         },
-        has: function(url, callback){
-            todo.getAll(function(todos){
+        has: function(name, url, callback){
+            data.getAll(name, function(todos, name){
                 for(var i=0;i<todos.length;i++) {
                     if(todos[i][0] === url) {
                         callback && callback(true);
@@ -60,6 +67,20 @@ $(function(){
                 }
                 callback && callback(false);
             });
+        },
+    };
+    var todo = {
+        add: function(item, callback){
+            data.add("todos", item, callback);
+        },
+        remove: function(url, callback){
+            data.remove("todos", url, callback);
+        },
+        getAll: function(callback){
+            data.getAll("todos", callback);
+        },
+        has: function(url, callback){
+            data.has("todos", url, callback);
         },
         redraw: function(callback) {
             todo.getAll(function(todos){
@@ -77,39 +98,17 @@ $(function(){
     };
 
     var done = {
-        add: function(data, callback){
-            done.getAll(function(datas){    //此处没有用this,不然在回调函数中总是需要绑定this
-                datas.push(data);
-                chrome.storage.sync.set({"dones": datas}, function(){callback && callback(data)});
-            });
+        add: function(item, callback){
+            data.add("dones", item, callback);
         },
         getAll: function(callback) {
-            chrome.storage.sync.get("dones", function(d) {
-                var dones = d["dones"];
-                if(!dones) dones = [];
-                callback && callback(dones);
-            });
+            data.getAll("dones", callback);
         },
         has: function(url, callback){
-            done.getAll(function(dones){
-                for(var i=0;i<dones.length;i++) {
-                    if(dones[i][0] === url) {
-                        callback && callback(true);
-                        return;
-                    }
-                }
-                callback && callback(false);
-            });
+            data.has("dones", url, callback);
         },
         remove: function(url, callback) {
-            done.getAll(function(dones){
-                var removed;
-                for(var i=0;i<dones.length;i++) {
-                    if(dones[i][0] === url) removed = dones.splice(i, 1);
-                }
-                chrome.storage.sync.set({"dones": dones}, function(){callback && callback(removed)});
-            });
-
+            data.remove("dones", url, callback);
         },
         clear: function(callback){
             chrome.storage.sync.set({"dones": []}, function(){callback && callback()});
